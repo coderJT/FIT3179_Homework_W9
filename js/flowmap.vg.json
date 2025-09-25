@@ -86,7 +86,8 @@
             "fields": ["latitude", "longitude"]
           }
         },
-        {"calculate": "toNumber(datum['2024'])", "as": "visitors"}
+        {"calculate": "toNumber(datum['2024'])", "as": "visitors"},
+        {"calculate": "toNumber(datum['% GROWTH'])", "as": "growth"}
       ],
       "mark": {
         "type": "circle",
@@ -98,17 +99,17 @@
         "longitude": {"field": "longitude", "type": "quantitative"},
         "latitude": {"field": "latitude", "type": "quantitative"},
         "size": {
-          "field": "visitors",
+          "field": "growth",
           "type": "quantitative",
-          "scale": {"range": [100, 1000]},
-          "legend": {"title": " ", "orient": "right"}
+          "scale": {"range": [100, 1000], "domain": [1, 100]},
+          "legend": {"title": "Percentage Growth", "orient": "right"}
         },
         "color": {
           "field": "visitors",
           "type": "quantitative",
           "scale": {
             "scheme": "reds",
-            "domain": [15000000, 0],
+            "domain": [20000000, 1],
             "reverse": true
           },
           "legend": {
@@ -119,7 +120,8 @@
         },
         "tooltip": [
           {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
-          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"}
+          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"},
+          {"field": "growth", "type": "quantitative", "title": "Percentage Growth", "format": ",d"}
         ]
       }
     },
@@ -128,8 +130,8 @@
       "transform": [{"filter": "datum.name === 'Malaysia'"}],
       "mark": {
         "type": "circle",
-        "color": "#e63946",
-        "size": 600,
+        "color": "black",
+        "size": 300,
         "opacity": 1,
         "stroke": "#fff",
         "strokeWidth": 2
