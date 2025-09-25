@@ -1,0 +1,144 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "#f0f0f0",
+  "title": {
+    "text": "Visitor Flow to Malaysia by Country in 2024",
+    "anchor": "middle",
+    "fontSize": 30,
+    "fontWeight": "bold",
+    "color": "#000",
+    "font": "Merriweather, serif"
+  },
+  "width": "container",
+  "height": "container",
+  "projection": {
+    "type": "naturalEarth1",
+    "scale": 200
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "#cce7ff"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#fefefe", "stroke": "#bbb", "strokeWidth": 0.8}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "#ddd"}
+    },
+    {
+      "data": {
+        "url": "./data/top_20_visitor_arrivals_country.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+          "lookup": "COUNTRY OF NATIONALITY",
+          "from": {
+            "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        },
+        {"calculate": "toNumber(datum['2024'])", "as": "visitors"},
+        {"calculate": "4.2105", "as": "dest_lat"},
+        {"calculate": "101.9758", "as": "dest_lon"}
+      ],
+      "mark": {
+        "type": "rule",
+        "stroke": "black",
+        "strokeOpacity": 0.3,
+        "strokeWidth": {"expr": "1 + 5*(datum.visitors/15000000)"}
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"field": "dest_lon"},
+        "latitude2": {"field": "dest_lat"},
+        "tooltip": [
+          {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
+          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "./data/top_20_visitor_arrivals_country.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+          "lookup": "COUNTRY OF NATIONALITY",
+          "from": {
+            "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        },
+        {"calculate": "toNumber(datum['2024'])", "as": "visitors"}
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.8,
+        "stroke": "#555",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "visitors",
+          "type": "quantitative",
+          "scale": {"range": [100, 1000]},
+          "legend": {"title": " ", "orient": "right"}
+        },
+        "color": {
+          "field": "visitors",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "reds",
+            "domain": [15000000, 0],
+            "reverse": true
+          },
+          "legend": {
+            "orient": "right",
+            "title": "Number of visitors",
+            "format": "~s"
+          }
+        },
+        "tooltip": [
+          {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
+          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
+      "transform": [{"filter": "datum.name === 'Malaysia'"}],
+      "mark": {
+        "type": "circle",
+        "color": "#e63946",
+        "size": 600,
+        "opacity": 1,
+        "stroke": "#fff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "tooltip": {"field": "name", "type": "nominal"}
+      }
+    }
+  ]
+}
