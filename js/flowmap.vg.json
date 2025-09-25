@@ -102,7 +102,7 @@
           "field": "growth",
           "type": "quantitative",
           "scale": {"range": [100, 1000], "domain": [1, 100]},
-          "legend": {"title": "Percentage Growth", "orient": "right"}
+          "legend": {"title": "Percentage Growth (%)", "orient": "right"}
         },
         "color": {
           "field": "visitors",
@@ -114,14 +114,14 @@
           },
           "legend": {
             "orient": "right",
-            "title": "Number of visitors (in Millions)",
+            "title": "Number of visitors (Million)",
             "format": "~s"
           }
         },
         "tooltip": [
           {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
-          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"},
-          {"field": "growth", "type": "quantitative", "title": "Percentage Growth", "format": ",d"}
+          {"field": "visitors", "type": "quantitative", "title": "Visitors Count (Million)", "format": ",d"},
+          {"field": "growth", "type": "quantitative", "title": "Percentage Growth (%)", "format": ",d"}
         ]
       }
     },
