@@ -120,7 +120,7 @@
         },
         "tooltip": [
           {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
-          {"field": "visitors", "type": "quantitative", "title": "Visitors Count (Millions)", "format": ",d"},
+          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"},
           {"field": "growth", "type": "quantitative", "title": "Percentage Growth (%)", "format": ",d"}
         ]
       }
