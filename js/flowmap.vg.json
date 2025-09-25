@@ -113,7 +113,7 @@
           },
           "legend": {
             "orient": "right",
-            "title": "Number of visitors",
+            "title": "Number of visitors (in Millions)",
             "format": "~s"
           }
         },
