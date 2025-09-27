@@ -52,41 +52,6 @@
           }
         },
         {"calculate": "toNumber(datum['2024'])", "as": "visitors"},
-        {"calculate": "4.2105", "as": "dest_lat"},
-        {"calculate": "101.9758", "as": "dest_lon"}
-      ],
-      "mark": {
-        "type": "rule",
-        "stroke": "black",
-        "strokeOpacity": 0.3,
-        "strokeWidth": {"expr": "1 + 5*(datum.visitors/15000000)"}
-      },
-      "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude": {"field": "latitude", "type": "quantitative"},
-        "longitude2": {"field": "dest_lon"},
-        "latitude2": {"field": "dest_lat"},
-        "tooltip": [
-          {"field": "COUNTRY OF NATIONALITY", "type": "nominal", "title": "Origin Country"},
-          {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"}
-        ]
-      }
-    },
-    {
-      "data": {
-        "url": "./data/top_20_visitor_arrivals_country.csv",
-        "format": {"type": "csv"}
-      },
-      "transform": [
-        {
-          "lookup": "COUNTRY OF NATIONALITY",
-          "from": {
-            "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
-            "key": "name",
-            "fields": ["latitude", "longitude"]
-          }
-        },
-        {"calculate": "toNumber(datum['2024'])", "as": "visitors"},
         {"calculate": "toNumber(datum['% GROWTH'])", "as": "growth"}
       ],
       "mark": {
