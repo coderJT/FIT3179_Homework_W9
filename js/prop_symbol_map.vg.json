@@ -38,6 +38,23 @@
       "mark": {"type": "geoshape", "fill": null, "stroke": "#ddd"}
     },
     {
+      "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
+      "transform": [{"filter": "datum.name === 'Malaysia'"}],
+      "mark": {
+        "type": "circle",
+        "color": "black",
+        "size": 300,
+        "opacity": 1,
+        "stroke": "#fff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "tooltip": {"field": "name", "type": "nominal"}
+      }
+    },
+    {
       "data": {
         "url": "./data/top_20_visitor_arrivals_country.csv",
         "format": {"type": "csv"}
@@ -88,23 +105,6 @@
           {"field": "visitors", "type": "quantitative", "title": "Visitors Count", "format": ",d"},
           {"field": "growth", "type": "quantitative", "title": "Percentage Growth (%)", "format": ",d"}
         ]
-      }
-    },
-    {
-      "data": {"url": "./data/countryInfo.csv", "format": {"type": "csv"}},
-      "transform": [{"filter": "datum.name === 'Malaysia'"}],
-      "mark": {
-        "type": "circle",
-        "color": "black",
-        "size": 300,
-        "opacity": 1,
-        "stroke": "#fff",
-        "strokeWidth": 2
-      },
-      "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude": {"field": "latitude", "type": "quantitative"},
-        "tooltip": {"field": "name", "type": "nominal"}
       }
     }
   ]
